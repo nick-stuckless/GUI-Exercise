@@ -41,7 +41,7 @@ def get_info():
     #update type val
     types = poke_info["types"]
     type_names = [item["type"]["name"] for item in types]
-    form_type_names = ", ".join(type_names)
+    form_type_names = ", ".join(type_names).title()
     type_val["text"] = form_type_names
     
 
