@@ -7,6 +7,7 @@ Usage:
   python poke_info_viewer.py
 """
 from tkinter import Tk, ttk
+from tkinter import messagebox
 from poke_api import get_pokemon_info
 # Create the main window
 root = Tk()
@@ -38,6 +39,11 @@ def get_info():
     height_val["text"] = poke_info["height"]
     weight_val["text"] = poke_info["weight"]
     #update type val
+    types = poke_info["types"]
+    type_names = [item["type"]["name"] for item in types]
+    form_type_names = ", ".join(type_names)
+    type_val["text"] = form_type_names
+    
 
     hp_bar["value"] = poke_info["stats"][0]["base_stat"]
     attck_bar["value"] = poke_info["stats"][1]["base_stat"]
@@ -46,7 +52,8 @@ def get_info():
     spec_def_bar["value"] = poke_info["stats"][4]["base_stat"]
     speed_bar["value"] = poke_info["stats"][5]["base_stat"]
   else:
-    pass #add error message
+    messagebox.showerror(message="Please enter a pokemon name", title="Input Error")
+    pass
   return
 
 input_but = ttk.Button(input, text="Get Info", command=get_info)
@@ -66,9 +73,9 @@ height_val = ttk.Label(info, width=20) #increases frame border
 weight_val = ttk.Label(info)
 type_val = ttk.Label(info)
 
-height_val.grid(row=0, column=1, sticky="W", padx=(5,10), pady=(5,10))
-weight_val.grid(row=1, column=1, sticky="W", padx=(5,10), pady=(5,10))
-type_val.grid(row=2, column=1, sticky="W", padx=(5,10), pady=(10,5))
+height_val.grid(row=0, column=1, sticky="W", padx=(5,10), pady=(10,5))
+weight_val.grid(row=1, column=1, sticky="W", padx=(5,10), pady=(5,5))
+type_val.grid(row=2, column=1, sticky="W", padx=(5,10), pady=(5,10))
 
 # Populate the Stats frame
 
